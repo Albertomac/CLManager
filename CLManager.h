@@ -80,10 +80,10 @@ CLDouble timeBetweenEventsS(CLEvent start,
 
 #pragma mark Select
 
-CLPlatform CLSelectPlatform(CLInt platformIndex);
+CLPlatform CLSelectPlatform(CLUInt platformIndex);
 
 CLDevice CLSelectDevice(CLPlatform platform,
-						CLInt deviceIndex);
+						CLUInt deviceIndex);
 
 
 #pragma mark Create

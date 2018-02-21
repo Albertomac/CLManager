@@ -46,7 +46,7 @@ void CLPrintPlatforms()
 	error = clGetPlatformIDs(nPlatforms, platforms, NULL);
 	CLErrorCheck(error, "clGetPlatformIDs", "get platform IDs", CHECK_EXIT);
 
-	for (CLInt i = 0; i < nPlatforms; ++i) {
+	for (CLUInt i = 0; i < nPlatforms; ++i) {
 		printf("PLATFORM #%d\n", i);
 		CLPrintPlatformInfo(platforms[i]);
 	}
@@ -104,7 +104,7 @@ void CLPrintDevices(CLPlatform platform)
 	error = clGetDeviceIDs(NULL, CL_DEVICE_TYPE_ALL, nDevices, devices, NULL);
 	CLErrorCheck(error, "clGetDeviceIDs", "get device IDs", CHECK_EXIT);
 
-	for (CLInt i = 0; i < nDevices; ++i) {
+	for (CLUInt i = 0; i < nDevices; ++i) {
 		printf("DEVICE #%d\n", i);
 		CLPrintDeviceInfo(devices[i]);
 	}
@@ -149,33 +149,30 @@ CLDouble timeBetweenEventsS(CLEvent start,
 
 #pragma mark Select
 
-CLPlatform CLSelectPlatform(CLInt platformIndex)
+CLPlatform CLSelectPlatform(CLUInt platformIndex)
 {
-	if (platformIndex >= 0) {
+	CLInt error;
+	CLUInt nPlatforms;
+	CLPlatform *platforms;
 
-		CLInt error;
-		CLUInt nPlatforms;
-		CLPlatform *platforms;
+	error = clGetPlatformIDs(0, NULL, &nPlatforms);
+	CLErrorCheck(error, "clGetPlatformIDs", "get nPlatforms", CHECK_EXIT);
 
-		error = clGetPlatformIDs(0, NULL, &nPlatforms);
-		CLErrorCheck(error, "clGetPlatformIDs", "get nPlatforms", CHECK_EXIT);
+	platforms = (CLPlatform *)calloc(nPlatforms, sizeof(CLPlatform));
 
-		platforms = (CLPlatform *)calloc(nPlatforms, sizeof(CLPlatform));
+	error = clGetPlatformIDs(nPlatforms, platforms, NULL);
+	CLErrorCheck(error, "clGetPlatformIDs", "get platforms IDs", CHECK_EXIT);
 
-		error = clGetPlatformIDs(nPlatforms, platforms, NULL);
-		CLErrorCheck(error, "clGetPlatformIDs", "get platforms IDs", CHECK_EXIT);
-
-		if (platformIndex < nPlatforms) {
-			return platforms[platformIndex];
-		}
+	if (platformIndex < nPlatforms) {
+		return platforms[platformIndex];
 	}
 	return NULL;
 }
 
 CLDevice CLSelectDevice(CLPlatform platform,
-						CLInt deviceIndex)
+						CLUInt deviceIndex)
 {
-	if (platform && deviceIndex >= 0) {
+	if (platform) {
 
 		CLInt error;
 		CLUInt nDevices;
@@ -342,7 +339,7 @@ CLSize CLGetPreferredWorkGroupSizeMultiple(CLKernel kernel,
 	CLSize preferredWorkGroupSizeMultiple = 1;
 
 	error = clGetKernelWorkGroupInfo(kernel, device, CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, sizeof(preferredWorkGroupSizeMultiple), &preferredWorkGroupSizeMultiple, NULL);
-	CLErrorCheck(error, "clGetKernelWorkGroupInfo", "CLGetPreferredWorkGroupSizeMultiple", CHECK_NOT_EXIT);
+	CLErrorCheck(error, "clGetKernelWorkGroupInfo", name, CHECK_NOT_EXIT);
 	return preferredWorkGroupSizeMultiple;
 }
 
