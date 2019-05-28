@@ -559,7 +559,7 @@ CLString getErrorName(CLInt errorCode) {
 		case CL_INVALID_ARG_VALUE:                return "Invalid argument value";
 		case CL_INVALID_ARG_SIZE:                 return "Invalid argument size";
 		case CL_INVALID_KERNEL_ARGS:              return "Invalid kernel arguments";
-		case CL_INVALID_WORK_DIMENSION:           return "Invalid work dimensionsension";
+		case CL_INVALID_WORK_DIMENSION:           return "Invalid work dimension";
 		case CL_INVALID_WORK_GROUP_SIZE:          return "Invalid work group size";
 		case CL_INVALID_WORK_ITEM_SIZE:           return "Invalid work item size";
 		case CL_INVALID_GLOBAL_OFFSET:            return "Invalid global offset";
