@@ -1,0 +1,13 @@
+__kernel
+void vecsum(global const int * A,
+            global const int * B,
+            global int * C,
+            size_t elements)
+{
+
+    size_t id = get_global_id(0);
+
+    if (id >= elements) return;
+
+    C[id] = A[id] + B[id];
+}
