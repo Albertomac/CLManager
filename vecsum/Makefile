@@ -1,7 +1,7 @@
 UNAME_S := $(shell uname -s)
 
 CC = gcc
-CFLAGS = --std=c99 -Wall -pedantic -O3
+CFLAGS = --std=c99 -Wall -pedantic -O3 -DCL_SILENCE_DEPRECATION
 
 ifeq ($(UNAME_S), Darwin)
 	LDFLAGS = -framework OpenCL
